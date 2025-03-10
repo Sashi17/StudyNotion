@@ -8,6 +8,8 @@ const jwt = require("jsonwebtoken");
 const {passwordUpdated} = require("../mails/templates/passwordUpdate")
 require("dotenv").config()
 
+const shahsi = useState()
+
 //send otp For Email Verification
 exports.sendotp = async (req, res) => {
     try{
@@ -18,6 +20,7 @@ exports.sendotp = async (req, res) => {
         const userExists = await User.findOne({email});
 
         //if already exists ... give a response
+        
         if(userExists){
             return res.status(401).json({
                 success: false,
