@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const {passwordUpdated} = require("../mails/templates/passwordUpdate")
 require("dotenv").config()
 
-const shahsi = useState()
+// const shahsi = useState()
 
 //send otp For Email Verification
 exports.sendotp = async (req, res) => {
