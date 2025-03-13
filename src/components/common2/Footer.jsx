@@ -2,6 +2,7 @@ import React from 'react'
 import {FooterLink2} from "../../data/footer-links"
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo/Logo-Full-Light.png"
+
 // Icons
 import { FaFacebook, FaGoogle, FaTwitter, FaYoutube } from "react-icons/fa";
 
@@ -16,7 +17,7 @@ const Community = ["Forums", "Chapters", "Events"]
 export const Footer = () => {
   return (
     <div className='bg-richblack-800 '>
-      <div className='w-fit flex lg:flex-row items-center justify-center gap-10 text-richblack-400 leading-6
+      <div className='w-11/12 flex lg:flex-row items-center justify-center gap-10 text-richblack-400 leading-6
          mx-auto relative py-14 max-w-maxContent'>
         <div className='border-b w-[100%] flex flex-col lg:flex-row pb-5 border-richblack-700'>
           
