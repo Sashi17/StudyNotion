@@ -22,7 +22,7 @@ export function sendOtp(email, navigate) {
     console.log("LOADING 2")
 
     try {
-        console.log("LOADING 3")
+      console.log("LOADING 3")
 
       const response = await apiConnector("POST", SENDOTP_API, {
         email,

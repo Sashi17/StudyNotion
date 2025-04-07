@@ -12,18 +12,18 @@ import { IoIosArrowDown } from "react-icons/io";
 
 const subLinks = [
   {
-      title: "python",
+      title: "Python",
       link:"/catalog/python"
   },
   {
-      title: "web dev",
+      title: "Web Dev",
       link:"/catalog/web-development"
   },
 ];
 
 
 export const Navbar = ({ setHovering }) => {
-  console.log("Printing base url: ",process.env.REACT_APP_BASE_URL);
+  console.log("Printing base url: ", process.env.REACT_APP_BASE_URL);
 
   //useSelector is a Redux hook that allows components to access the state from the Redux store.
   const {token} = useSelector( (state) => state.auth);
@@ -34,19 +34,19 @@ export const Navbar = ({ setHovering }) => {
 
   const fetchSubLinks = async() => {
     try{
-      const result = await apiConnector("GET", categories.CATEGORIES_API)
-      console.log("Printing sublinks data", result);
-      setSsubLinks(result.data.data)
+      const result = await apiConnector("GET", categories.CATEGORIES_API);
+      console.log("Printing Sublinks data", result);
+      setSsubLinks(result.data.data);
     }catch (err){
       console.log(err);
-      console.log("Could not fetch the category list api")
+      console.log("Could not fetch the category list api");
     }
   }
 
   useEffect( () => {
     console.log("PRINTING TOKEN", token)
     fetchSubLinks();
-  }, [])
+  }, [token])
 
   const location = useLocation();
   const RouteMatch = (route) => {
@@ -70,14 +70,14 @@ export const Navbar = ({ setHovering }) => {
                     {
                       //If element is null or undefined, it prevents errors and returns undefined instead of throwing an error(?.)
                       link.title === "Catalog" ? (
-                        <div className='relative flex items-center gap-2 group'
+                        <div className='relative flex items-center gap-2 group hover:text-yellow-50'
                             onMouseEnter={() => setHovering(true)}
                             onMouseLeave={() => setHovering(false)}>
                           <p>{link.title}</p>
                           <IoIosArrowDown />
 
                           <div className='invisible flex flex-col absolute left-[50%] 
-                          translate-x-[-50%] translate-y-[40%] top-[50%] rounded-md bg-richblack-5 p-4 text-richblack-900 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 lg:w-[300px]'
+                          translate-x-[-50%] translate-y-[30%] top-[50%] rounded-md bg-richblack-5 p-4 text-richblack-900 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 lg:w-[300px] font-medium text-lg leading-relaxed gap-2'
                             onMouseEnter={() => setHovering(true)}
                             onMouseLeave={() => setHovering(false)}>
 
@@ -88,8 +88,8 @@ export const Navbar = ({ setHovering }) => {
                             {
                               subLinks.length ? (
                                       subLinks.map( (subLink, index) => (
-                                          <Link to={`${subLink.link}`} key={index}>
-                                              <p>{subLink.title}</p>
+                                          <Link to={`${subLink.link}`} key={index} >
+                                              <p >{subLink.title}</p>
                                           </Link>
                                       ) )
                               ) : (<div></div>)
@@ -99,7 +99,7 @@ export const Navbar = ({ setHovering }) => {
                         </div>
                       ) : (
                         <Link to={link?.path}>
-                          <p className={` ${ RouteMatch(link?.path) ? "text-yellow-25" : "text-richblack-25"} `}>
+                          <p className={` ${ RouteMatch(link?.path) ? "text-yellow-25" :  "text-richblack-25"}  hover:text-yellow-50`}>
                             {link.title}
                           </p>
                         </Link>
