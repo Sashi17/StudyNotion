@@ -19,17 +19,12 @@ export function sendOtp(email, navigate) {
     const toastId = toast.loading("Loading...")
     console.log("LOADING 1")
     dispatch(setLoading(true));
-    console.log("LOADING 2")
 
     try {
-      console.log("LOADING 3")
-
       const response = await apiConnector("POST", SENDOTP_API, {
         email,
         checkUserPresent: true,
       })
-
-      console.log("LOADING 4")
 
       console.log("SENDOTP API RESPONSE............", response)
 
@@ -139,7 +134,7 @@ export function logout(navigate) {
   }
 }
 
-export function getPasswordResetToken(email , setEmailSent) {
+export function getPwResetToken(email , setEmailSent) {
   return async(dispatch) => {
     dispatch(setLoading(true));
     try{
