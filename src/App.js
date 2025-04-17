@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route,Routes, useNavigate } from "react-router-dom";
+import { Route,Routes } from "react-router-dom";
 import OpenRoute from "./components/core/Auth/OpenRoute";
 import { Home } from "./pages/Home";
 import {Navbar} from "./components/common/Navbar"
@@ -8,6 +8,10 @@ import { useState } from "react";
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import { ForgotPw } from "./pages/ForgotPw";
+import { UpdatePw } from "./pages/UpdatePw";
+import { VerifyEmail } from "./pages/VerifyEmail";
+
+
 
 function App() {
   //when hover on catalog..(become an instructor) is hidden
@@ -42,7 +46,7 @@ function App() {
         />
 
         <Route
-          path="/forgotpw"
+          path="/forgot-password"
           element={
             <OpenRoute>
               <ForgotPw/>
@@ -50,6 +54,23 @@ function App() {
           }
         />
 
+        <Route
+          path="/verify-email"
+          element={
+            <OpenRoute>
+              <VerifyEmail/>
+            </OpenRoute>
+          }
+        />
+
+        <Route
+          path="/update-password/:id"
+          element={
+            <OpenRoute>
+              <UpdatePw/>
+            </OpenRoute>
+          }
+        />
 
       </Routes>
     </div>
