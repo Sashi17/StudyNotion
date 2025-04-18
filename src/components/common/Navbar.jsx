@@ -23,7 +23,7 @@ const subLinks = [
 
 
 export const Navbar = ({ setHovering }) => {
-  console.log("Printing base url: ", process.env.REACT_APP_BASE_URL);
+  // console.log("Printing base url: ", process.env.REACT_APP_BASE_URL);
 
   //useSelector is a Redux hook that allows components to access the state from the Redux store.
   const {token} = useSelector( (state) => state.auth);
@@ -35,7 +35,7 @@ export const Navbar = ({ setHovering }) => {
   const fetchSubLinks = async() => {
     try{
       const result = await apiConnector("GET", categories.CATEGORIES_API);
-      console.log("Printing Sublinks data", result);
+      // console.log("Printing Sublinks data", result);
       setSsubLinks(result.data.data);
     }catch (err){
       console.log(err);
@@ -44,7 +44,7 @@ export const Navbar = ({ setHovering }) => {
   }
 
   useEffect( () => {
-    console.log("PRINTING TOKEN", token)
+    // console.log("PRINTING TOKEN", token)
     fetchSubLinks();
   }, [token])
 

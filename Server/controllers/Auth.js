@@ -103,14 +103,14 @@ exports.signup = async (req, res) => {
             });
         }
 
-        // find most recent otp in db for thr email
+        // find most recent otp in db for the email
         // sort documents in descending order based on the createdAt field.
 		// limit(1) --> retrieve only one document from the database.
         const recentOtp = await OTP.find({email}).sort({createdAt: -1}).limit(1);
         console.log(recentOtp);
 
         //validate otp
-        if(recentOtp.length == 0){
+        if(recentOtp.length === 0){
             return res.status(400).json({
                 success: false,
                 message: "No otp found",

@@ -10,12 +10,12 @@ function LoginForm() {
   const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
+    pw: "",
   })
 
   const [showPassword, setShowPassword] = useState(false)
 
-  const { email, password } = formData
+  const { email, pw } = formData
 
   const handleOnChange = (e) => {
     setFormData((prevData) => ({
@@ -26,7 +26,7 @@ function LoginForm() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault()
-    dispatch(login(email, password, navigate))
+    dispatch(login(email, pw, navigate))
   }
 
   return (
@@ -58,8 +58,8 @@ function LoginForm() {
         <input
           required
           type={showPassword ? "text" : "password"}
-          name="password"
-          value={password}
+          name="pw"
+          value={pw}
           onChange={handleOnChange}
           placeholder="Enter Password"
           style={{

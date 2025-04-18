@@ -10,7 +10,8 @@ import Signup from "./pages/Signup"
 import { ForgotPw } from "./pages/ForgotPw";
 import { UpdatePw } from "./pages/UpdatePw";
 import { VerifyEmail } from "./pages/VerifyEmail";
-
+import { About } from "./pages/About";
+import { Contact } from "./pages/Contact";
 
 
 function App() {
@@ -71,6 +72,15 @@ function App() {
             </OpenRoute>
           }
         />
+
+        <Route
+          path="/about"
+          element={
+              <About/>
+          }
+        />
+
+        <Route path="/contact" element={<Contact />} />
 
       </Routes>
     </div>
