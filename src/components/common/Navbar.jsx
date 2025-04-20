@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import logo from "../../assets/Logo/Logo-Full-Light.png"
 import { Link, matchPath } from 'react-router-dom'
-import {NavbarLinks} from "../../data/navbar-links"
 import { useLocation } from 'react-router-dom'
+import {NavbarLinks} from "../../data/navbar-links"
 import { useSelector } from 'react-redux'
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { ProfileDropDown } from '../core/Auth/ProfileDropDown'
@@ -10,16 +10,16 @@ import { apiConnector } from '../../services/apiconnectors'
 import { categories } from '../../services/apis'
 import { IoIosArrowDown } from "react-icons/io";
 
-const subLinks = [
-  {
-      title: "Python",
-      link:"/catalog/python"
-  },
-  {
-      title: "Web Dev",
-      link:"/catalog/web-development"
-  },
-];
+// const subLinks = [
+//   {
+//       title: "Python",
+//       link:"/catalog/python"
+//   },
+//   {
+//       title: "Web Dev",
+//       link:"/catalog/web-development"
+//   },
+// ];
 
 
 export const Navbar = ({ setHovering }) => {
@@ -27,20 +27,29 @@ export const Navbar = ({ setHovering }) => {
 
   //useSelector is a Redux hook that allows components to access the state from the Redux store.
   const {token} = useSelector( (state) => state.auth);
+  // console.log(token)
   const {user} = useSelector( (state) => state.profile);
+  // console.log(user)
   const {totalItems} = useSelector( (state) => state.cart); 
+  const location = useLocation();
 
   const [ssubLinks, setSsubLinks] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const fetchSubLinks = async() => {
+    setLoading(true)
     try{
       const result = await apiConnector("GET", categories.CATEGORIES_API);
-      // console.log("Printing Sublinks data", result);
+      // console.log("Printing Sublinks data", result.data);
+      // const data = result.data.allCategories;
+      // const names = data.map(item => item.name);
+      // console.log(names);
       setSsubLinks(result.data.data);
     }catch (err){
       console.log(err);
       console.log("Could not fetch the category list api");
     }
+    setLoading(false)
   }
 
   useEffect( () => {
@@ -48,7 +57,6 @@ export const Navbar = ({ setHovering }) => {
     fetchSubLinks();
   }, [token])
 
-  const location = useLocation();
   const RouteMatch = (route) => {
     return matchPath({path:route}, location.pathname);
   }
@@ -85,16 +93,29 @@ export const Navbar = ({ setHovering }) => {
                             translate-x-[80%] translate-y-[-45%] h-6 w-6 rotate-45 rounded bg-richblack-5'>
                             </div>
 
-                            {
-                              subLinks.length ? (
-                                      subLinks.map( (subLink, index) => (
-                                          <Link to={`${subLink.link}`} key={index} >
-                                              <p >{subLink.title}</p>
-                                          </Link>
-                                      ) )
-                              ) : (<div></div>)
-                            }
-
+                            {loading ? (
+                              <p className="text-center">Loading...</p>
+                            ) : ssubLinks.length ? (
+                                <>
+                                  {ssubLinks
+                                  ?.filter(
+                                      (subLink) => subLink?.courses?.length > 0
+                                    )
+                                    ?.map((subLink, i) => (
+                                      <Link
+                                        to={`/catalog/${subLink.name
+                                          .split(" ")
+                                          .join("-")
+                                          .toLowerCase()}`}
+                                        className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
+                                        key={i}
+                                      > <p> {subLink.name} </p>
+                                      </Link>
+                                    ))}
+                                </>
+                              ) : (
+                                <p className="text-center">No Courses Found</p>
+                              ) }
                           </div>
                         </div>
                       ) : (
