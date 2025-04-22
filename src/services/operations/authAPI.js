@@ -17,7 +17,7 @@ const {
 export function sendOtp(email, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...")
-    console.log("LOADING 1")
+    // console.log("LOADING 1")
     dispatch(setLoading(true));
 
     try {
@@ -26,9 +26,9 @@ export function sendOtp(email, navigate) {
         checkUserPresent: true,
       })
 
-      console.log("SENDOTP API RESPONSE............", response)
+      // console.log("SENDOTP API RESPONSE............", response)
 
-      console.log(response.data.success)
+      // console.log(response.data.success)
 
       if (!response.data.success) {
         throw new Error(response.data.message)
@@ -69,7 +69,7 @@ export function signUp(
         otp,
       })
 
-      console.log("SIGNUP API RESPONSE............", response)
+      // console.log("SIGNUP API RESPONSE............", response)
 
       if (!response.data.success) {
         throw new Error(response.data.message)
@@ -96,7 +96,7 @@ export function login(email, pw, navigate) {
         pw,
       })
 
-      console.log("LOGIN API RESPONSE............", response)
+      // console.log("LOGIN API RESPONSE............", response)
 
       if (!response.data.success) {
         throw new Error(response.data.message)
@@ -141,7 +141,7 @@ export function getPwResetToken(email , setEmailSent) {
       // console.log("Loading 3")
       const response = await apiConnector("POST", RESETPASSTOKEN_API, {email,})
       // console.log("Loading 4")
-      console.log("RESET PASSWORD TOKEN RESPONSE....", response);
+      // console.log("RESET PASSWORD TOKEN RESPONSE....", response);
 
       if(!response.data.success) {
         throw new Error(response.data.message);
@@ -162,11 +162,11 @@ export function resetPassword(password, confirmPassword, token) {
   return async(dispatch) => {
     dispatch(setLoading(true));
     try{
-      console.log("loading 2")
+      // console.log("loading 2")
       const response = await apiConnector("POST", RESETPASSWORD_API, { password, confirmPassword, token });
       
-      console.log("loading 3")
-      console.log("RESET Password RESPONSE ... ", response);
+      // console.log("loading 3")
+      // console.log("RESET Password RESPONSE ... ", response);
 
 
       if(!response.data.success) {
