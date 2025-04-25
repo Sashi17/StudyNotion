@@ -36,5 +36,5 @@ export const AddCourse = () => {
             </div>
         </div>
     </>
-)
+    )
 }

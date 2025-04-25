@@ -20,7 +20,7 @@ import Settings from "./components/core/Dashboard/Settings";
 import { EnrolledCourses } from "./components/core/Dashboard/EnrolledCourses";
 import { Cart } from "./components/core/Dashboard/Cart";
 import { ACCOUNT_TYPE } from "./utils/constants";
-import { AddCourse } from "./components/core/Dashboard/AddCourse";
+import { AddCourse } from "./components/core/Dashboard/AddCourse/index";
 
 
 
@@ -99,7 +99,6 @@ function App() {
           }
         >
           <Route path="dashboard/my-profile" element={<MyProfile />} />
-
           <Route path="dashboard/Settings" element={<Settings />} />
 
           {
@@ -111,23 +110,25 @@ function App() {
             )
           }
 
+          {
+            user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+              <>
+              {/* <Route path="dashboard/instructor" element={<Instructor />} /> */}
+              <Route path="dashboard/add-course" element={<AddCourse />} />
+              {/* <Route path="dashboard/my-courses" element={<MyCourses />} /> */}
+              {/* <Route path="dashboard/edit-course/:courseId" element={<EditCourse />} /> */}
+              
+              </>
+            )
+          }
+
         </Route>
 
 
 
         <Route path="/contact" element={<Contact />} />
 
-      {
-        user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
-          <>
-          {/* <Route path="dashboard/instructor" element={<Instructor />} /> */}
-          <Route path="dashboard/add-course" element={<AddCourse />} />
-          {/* <Route path="dashboard/my-courses" element={<MyCourses />} /> */}
-          {/* <Route path="dashboard/edit-course/:courseId" element={<EditCourse />} /> */}
-          
-          </>
-        )
-      }
+      
 
 
 
