@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux'
 import { FaCheck } from 'react-icons/fa'
 import { CourseInformationForm } from './CourseInformation/CourseInformationForm'
 import { CourseBuilderForm } from './CourseBuilder/CourseBuilderForm'
+
+
 export const RenderSteps = () => {
     const { step } = useSelector((state) => state.course)
 
@@ -28,7 +30,7 @@ export const RenderSteps = () => {
           <>
             <div
               className="flex flex-col items-center "
-              key={item.id}
+              key={item}
             >
               <button
                 className={`grid cursor-default aspect-square w-[34px] place-items-center rounded-full border-[1px] ${

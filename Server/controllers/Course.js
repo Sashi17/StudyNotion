@@ -69,7 +69,7 @@ exports.createCourse = async (req, res) => {
             {_id: instructorDetails._id},
             {
                 $push:{
-                    course: newCourse._id
+                    courses: newCourse._id
                 }
             },
             {new: true}
@@ -80,7 +80,7 @@ exports.createCourse = async (req, res) => {
             {_id: category},
             {
                 $push:{
-                    course: newCourse._id
+                    courses: newCourse._id
                 }
             },
             {new: true}
