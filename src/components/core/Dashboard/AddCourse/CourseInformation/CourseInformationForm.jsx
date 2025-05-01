@@ -3,7 +3,7 @@ import toast from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
 import { HiOutlineCurrencyRupee } from 'react-icons/hi2'
-import { MdNavigateNext } from 'react-icons/md'
+// import { MdNavigateNext } from 'react-icons/md'
 import { fetchCourseCategories, editCourseDetails, addCourseDetails } from "../../../../../services/operations/courseDetailsAPI"
 import {setCourse, setStep} from "../../../../../slices/courseSlice"
 import { COURSE_STATUS } from '../../../../../utils/constants'
@@ -73,10 +73,9 @@ export const CourseInformationForm = () => {
     
     //handles next button click
     const onSubmit = async (data) => {
-        console.log("Form Data on Submit:", data); // Console logging the data object from react-hook-form
+        console.log("Form Data on Submit:", data);
 
         if (editCourse) {
-            // const currentValues = getValues()
             if (isFormUpdated()) {
                 const currentValues = getValues()
                 const formData = new FormData()
@@ -120,7 +119,7 @@ export const CourseInformationForm = () => {
             return;
         }
 
-      //create a new form data
+        //create a new form data
         const formData = new FormData()
         formData.append("courseName", data.courseTitle)
         formData.append("courseDescription", data.courseShortDesc)
@@ -131,9 +130,10 @@ export const CourseInformationForm = () => {
         formData.append("status", COURSE_STATUS.DRAFT)
         formData.append("instructions", JSON.stringify(data.courseRequirements))
         formData.append("thumbnailImage", data.courseImage)
-        
+
         setLoading(true)
         const result = await addCourseDetails(formData, token)
+        // console.log("result......",result)
         if (result) {
             dispatch(setStep(2))
             dispatch(setCourse(result))
@@ -294,10 +294,10 @@ export const CourseInformationForm = () => {
                     Continue Without Saving
                 </button>
             )}
-            <IconBtn type='submit'
+            <IconBtn
+                type='submit'
                 disabled={loading} 
-                text={!editCourse ? "Next" : "Save Changes"}
-            >
+                text={!editCourse ? "Next" : "Save Changes"} >
             </IconBtn>
         </div>
         

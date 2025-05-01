@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from "react-redux"
 import { IconBtn } from '../../../../common/IconBtn'
 import { IoAddCircleOutline } from 'react-icons/io5'
-import {MdNavigateNext} from "react-icons/md"
+import { MdNavigateNext } from "react-icons/md"
 import { setCourse, setEditCourse, setStep } from "../../../../../slices/courseSlice"
 import { NestedView } from './NestedView'
 import { createSection, updateSection } from "../../../../../services/operations/courseDetailsAPI"
@@ -50,21 +50,23 @@ export const CourseBuilderForm = () => {
   }
 
   const onSubmit = async(data) =>{
-    console.log(data,"dataaaaa")
+    // console.log(data,"dataaaaa")
     setLoading(true)
     let result
+
+    // console.log(course)
+    // console.log(course.newCourse._id)
 
     if (editSectionName) {
       result = await updateSection( {
           sectionName: data.sectionName,
           sectionId: editSectionName,
-          courseId: course._id,
+          courseId: course.newCourse._id,
         }, token )
-      // console.log("edit", result)
     } else {
       result = await createSection( {
           sectionName: data.sectionName,
-          courseId: course._id,
+          courseId: course.newCourse._id,
         }, token )
     }
     if (result) {
@@ -75,8 +77,7 @@ export const CourseBuilderForm = () => {
     }
     setLoading(false)
   }
-  console.log(course,"HIIIII");
-  console.log("HI")
+  // console.log(course,"HIIIII");
   return (
     <div className='pace-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6'>
       <p className="text-2xl font-semibold text-richblack-5">Course Builder</p>
@@ -120,7 +121,7 @@ export const CourseBuilderForm = () => {
         </div>
       </form>
 
-      {course.courseContent.length > 0 && (
+      {course.courseContent?.length > 0 && (
         <NestedView handleChangeEditSectionName={handleChangeEditSectionName} />
       )}
       

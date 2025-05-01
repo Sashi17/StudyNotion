@@ -97,7 +97,9 @@ export const addCourseDetails = async (data, token) => {
       throw new Error("Could Not Add Course Details")
     }
     toast.success("Course Details Added Successfully")
-    result = response?.data?.data
+    // result = response?.data?.data
+    result = response?.data
+
   } catch (error) {
     console.log("CREATE COURSE API ERROR............", error)
     toast.error(error.message)
@@ -135,7 +137,7 @@ export const createSection = async (data, token) => {
   const toastId = toast.loading("Loading...")
   try {
     const response = await apiConnector("POST", CREATE_SECTION_API, data, {
-      Authorisation: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     })
     console.log("CREATE SECTION API RESPONSE............", response)
     if (!response?.data?.success) {

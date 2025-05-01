@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { FiUploadCloud } from "react-icons/fi"
 // import { useSelector } from "react-redux"
@@ -12,17 +12,21 @@ export default function Upload({
   register,
   setValue,
   errors,
+  //video is false refers an image 
   video = false,
   viewData = null,
   editData = null,
 }) {
   // const { course } = useSelector((state) => state.course)
   const [selectedFile, setSelectedFile] = useState(null)
+  // previewsource --> This variable will hold the data URL or URL of the file that is currently being previewed in the UI. 
   const [previewSource, setPreviewSource] = useState(
     viewData ? viewData : editData ? editData : ""
   )
-  const inputRef = useRef(null)
+  // const inputRef = useRef(null)
 
+  // You can either use the hook
+  // acceptedFiles is an array of File objects that were accepted by the react-dropzone based on the accept prop you provided in the useDropzone configuration
   const onDrop = (acceptedFiles) => {
     const file = acceptedFiles[0]
     if (file) {
@@ -30,18 +34,17 @@ export default function Upload({
       setSelectedFile(file)
     }
   }
-
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: !video
-      ? { "image/*": [".jpeg", ".jpg", ".png"] }
-      : { "video/*": [".mp4"] },
-    onDrop,
+    accept: !video ? { "image/*": [".jpeg", ".jpg", ".png"] } : { "video/*": [".mp4"] }, onDrop,
+    // onDrop -->This tells react-dropzone which function to call when files are successfully dropped onto the dropzone or selected from the file dialog.
   })
 
+  //previewFile reads the file content as a data URL using FileReader.
   const previewFile = (file) => {
     // console.log(file)
     const reader = new FileReader()
     reader.readAsDataURL(file)
+    //The data URL is then set as the previewSource state, which is used to display a preview of the selected image or video.
     reader.onloadend = () => {
       setPreviewSource(reader.result)
     }
@@ -49,11 +52,11 @@ export default function Upload({
 
   useEffect(() => {
     register(name, { required: true })
-  }, [register])
+  }, [register, name])
 
   useEffect(() => {
     setValue(name, selectedFile)
-  }, [selectedFile, setValue])
+  }, [selectedFile, setValue, name])
 
   return (
     <div className="flex flex-col space-y-2">
@@ -76,6 +79,9 @@ export default function Upload({
             ) : (
               <Player aspectRatio="16:9" playsInline src={previewSource} />
             )}
+            
+            {/* viewData isn't changed anywhere, it remained as null from start */}
+            {/* cancel button is controlled by previewSource state not directly by viewData */}
             {!viewData && (
               <button
                 type="button"
@@ -95,7 +101,10 @@ export default function Upload({
             className="flex w-full flex-col items-center p-6"
             {...getRootProps()}
           >
-            <input {...getInputProps()} ref={inputRef} />
+            <input {...getInputProps()}
+              // when you use ref={inputRef}, it may interfere with how react-dropzone manages the input if you're not using that ref directly.
+              // ref={inputRef} 
+              />
             <div className="grid aspect-square w-14 place-items-center rounded-full bg-pure-greys-800">
               <FiUploadCloud className="text-2xl text-yellow-50" />
             </div>
