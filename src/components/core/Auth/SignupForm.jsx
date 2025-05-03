@@ -20,8 +20,8 @@ function SignupForm() {
     firstName: "",
     lastName: "",
     email: "",
-    pw: "",
-    confirmPw: "",
+    password: "",
+    confirmPassword: "",
   })
 
   const [showPassword, setShowPassword] = useState(false)
