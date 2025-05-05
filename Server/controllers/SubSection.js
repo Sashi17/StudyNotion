@@ -31,15 +31,16 @@ exports.createSubSection = async (req, res) => {
         });
 
         //push into section
-        const updatedSection = await Section.findByIdAndUpdate(sectionId, { 
-                    $push:{ subSection: subSectionDetails._id, } 
-                }, {new: true} )
+        const updatedSection = await Section.findByIdAndUpdate(
+                    {_id:sectionId}, 
+                    {$push: { subSection: subSectionDetails._id, } }, 
+                    {new: true} )
                     .populate("subSection");
         //send res
         return res.status(200).json({
             success: true,
             message: "Sub-Section created Successfully",
-            updatedSection
+            data: updatedSection
         });
     }catch(err){
         console.log(err)
@@ -59,9 +60,8 @@ exports.updateSubSection = async (req, res) => {
         //SOL --> 1) sub section id     2) subsection correspondoing to id
         //3) set default as prev i.e. title = pre.title ???
 
-        const {title, description, sectionId} = req.body;
-        
-        const subSection = await subSection.findbyId(sectionId)
+        const { sectionId, subSectionId, title, description } = req.body        
+        const subSection = await subSection.findbyId(subSectionId)
 
         //data validate --> dont need to validate other attributes
         if( !subSection ){
@@ -91,11 +91,14 @@ exports.updateSubSection = async (req, res) => {
         }
         await subSection.save()
 
+        // find updated section and return it for front-end interaction
+        const updatedSection = await Section.findById(sectionId).populate( "subSection" ) 
+
         //return response
         return res.status(200).json({
             success: true,
             message: "Section Updated Successfully",
-            updatedSection
+            data: updatedSection
         });
     }catch(err){
         console.log(err)
@@ -130,11 +133,14 @@ exports.deleteSubSection = async (req, res) => {
               },
             })
 
+        // find updated section and return it for front-end interaction
+        const updatedSection = await Section.findById(sectionId).populate( "subSection" ) 
+
         //send response
         return res.status(200).json({
             success: true,
             message: "Sub-Section Deleted Successfully",
-            updatedCourse
+            data: updatedSection
         });
     }catch(err){
         console.log(err)

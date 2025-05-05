@@ -54,19 +54,19 @@ export const CourseBuilderForm = () => {
     setLoading(true)
     let result
 
-    // console.log(course)
-    // console.log(course.newCourse._id)
+    // console.log("COURSE>>>>", course)
+    // console.log(course._id)
 
     if (editSectionName) {
       result = await updateSection( {
           sectionName: data.sectionName,
           sectionId: editSectionName,
-          courseId: course.newCourse._id,
+          courseId: course._id,
         }, token )
     } else {
       result = await createSection( {
           sectionName: data.sectionName,
-          courseId: course.newCourse._id,
+          courseId: course._id,
         }, token )
     }
     if (result) {
@@ -77,7 +77,7 @@ export const CourseBuilderForm = () => {
     }
     setLoading(false)
   }
-  // console.log(course,"HIIIII");
+
   return (
     <div className='pace-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6'>
       <p className="text-2xl font-semibold text-richblack-5">Course Builder</p>

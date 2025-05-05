@@ -23,12 +23,11 @@ export const NestedView = ({ handleChangeEditSectionName }) => {
     // to keep track of confirmation modal
     const [confirmationModal, setConfirmationModal] = useState(null)
 
-    const handleDeleleSection = async (sectionId) => {
-        const result = await deleteSection({
-          sectionId,
-          courseId: course._id,
-          token,
-        })
+    const handleDeleteSection = async (sectionId) => {
+        const result = await deleteSection({sectionId, 
+            courseId: course._id },
+            token,
+        )
         if (result) {
           dispatch(setCourse(result))
         }
@@ -79,7 +78,7 @@ export const NestedView = ({ handleChangeEditSectionName }) => {
                                     text2: "All the lectures in this section will be deleted",
                                     btn1Text: "Delete",
                                     btn2Text: "Cancel",
-                                    btn1Handler: () => handleDeleleSection(section._id),
+                                    btn1Handler: () => handleDeleteSection(section._id),
                                     btn2Handler: () => setConfirmationModal(null),
                                 }) } >
                                 <RiDeleteBin6Line className="text-xl text-richblack-300" />
@@ -88,12 +87,13 @@ export const NestedView = ({ handleChangeEditSectionName }) => {
                             <AiFillCaretDown className={`text-xl text-richblack-300`} />
                         </div>
                     </summary>
-                    <div className="px-6 pb-4"> 
 
+                    <div className="px-6 pb-4"> 
                         {/* Render All Sub Sections Within a Section */}
                         {section.subSection.map((data) => (
                             <div key={data?._id} 
-                                onClick={() => setViewSubSection(data)} className="flex cursor-pointer items-center justify-between gap-x-3 border-b-2 border-b-richblack-600 py-2"
+                                onClick={() => setViewSubSection(data)} 
+                                className="flex cursor-pointer items-center justify-between gap-x-3 border-b-2 border-b-richblack-600 py-2"
                             >
                                 <div className="flex items-center gap-x-3 py-2 ">
                                     <RxDropdownMenu className="text-2xl text-richblack-50" />
@@ -101,7 +101,8 @@ export const NestedView = ({ handleChangeEditSectionName }) => {
                                         {data.title}
                                     </p>
                                 </div>
-                                <div onClick={(e) => e.stopPropagation()} className="flex items-center gap-x-3">
+                                <div onClick={(e) => e.stopPropagation()} 
+                                    className="flex items-center gap-x-3">
                                     <button onClick={() => setEditSubSection({ ...data, sectionId: section._id }) } >
                                         <MdEdit className="text-xl text-richblack-300" />
                                     </button>

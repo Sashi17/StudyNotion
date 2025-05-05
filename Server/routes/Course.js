@@ -1,7 +1,14 @@
 const express = require("express")
 const router = express.Router()
 
-const { createCourse, getAllCourses, getCourseDetails } = require("../controllers/Course");
+const { createCourse,
+    getAllCourses,
+    getCourseDetails,
+    getFullCourseDetails,
+    editCourse,
+    getInstructorCourses,
+    deleteCourse,
+ } = require("../controllers/Course");
 const { createCategory, getAllCategory, categoryPageDetails } = require("../controllers/Categories");
 const { createRating, getAverageRating, getAllRatings } = require("../controllers/RatingAndReview")
 const { createSection, updateSection, deleteSection } = require("../controllers/Section") 
@@ -39,6 +46,18 @@ router.get("/getAllCourses", getAllCourses);
 
 //Get Details for a Specific Courses
 router.post("/getCourseDetails", getCourseDetails);
+
+// Get Details for a Specific Courses
+router.post("/getFullCourseDetails", auth, getFullCourseDetails)
+
+// Edit Course routes
+router.post("/editCourse", auth, isInstructor, editCourse)
+
+// Get all Courses Under a Specific Instructor
+router.get("/getInstructorCourses", auth, isInstructor, getInstructorCourses)
+
+// Delete a Course
+router.delete("/deleteCourse", deleteCourse)
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)
