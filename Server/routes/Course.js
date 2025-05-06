@@ -65,7 +65,7 @@ router.delete("/deleteCourse", deleteCourse)
 // Category can Only be Created by Admin
 router.post("/createCategory", auth, isAdmin, createCategory)
 router.get("/showAllCategories", getAllCategory)
-router.get("/getCategoryPageDetails", categoryPageDetails)
+router.post("/getCategoryPageDetails", categoryPageDetails)
 
 // ********************************************************************************************************
 //                                      Rating and Review

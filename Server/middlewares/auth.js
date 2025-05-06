@@ -6,9 +6,8 @@ const User = require("../models/User")
 exports.auth = async (req, res, next) => {
     try{
         //extract jwt
-        const token = req.cookies.token
-                        || req.body.token
-                        || req.header("Authorization").replace("Bearer ", ""); 
+        const token = req.cookies.token || req.body.token
+                     || req.header("Authorization").replace("Bearer ", ""); 
         //if token missing
         if(!token) {
             return res.status(401).json({

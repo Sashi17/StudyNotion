@@ -12,7 +12,7 @@ import {Footer} from '../components/common/Footer'
 import { ExploreMore } from '../components/core/Homepage2/ExploreMore'
 
 
-export const Home = ({ hovering }) => {
+export const Home = () => {
   return (
     <div>
         {/*SECTION 1*/}
@@ -20,8 +20,7 @@ export const Home = ({ hovering }) => {
             
             <Link to={"/signup"}>
                 <div className= {`group mt-16 p-1 mx-auto rounded-full bg-richblack-800 text-richblack-200 font-bold
-                transition-all duration-200 hover-scale-95 w-fit shadow-sm shadow-richblack-600 
-                ${ hovering ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
+                    transition-all duration-200 hover-scale-95 w-fit shadow-sm shadow-richblack-600`}>
                     <div className={`flex flex-row items-center gap-2 rounded-full px-10 py-[5px] 
                     transition-all duration-200 group-hover:bg-richblack-900`}>
                         <p>Become an Instructor</p>

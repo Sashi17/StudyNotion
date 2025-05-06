@@ -1,8 +1,8 @@
 import React from "react"
 
 import {Footer} from "../components/common/Footer"
-import {ContactDetails} from "../components/common/Contact Page/ContactDetails"
-import {ContactForm} from "../components/common/Contact Page/ContactForm"
+import {ContactDetails} from "../components/Contact Page/ContactDetails"
+import {ContactForm} from "../components/Contact Page/ContactForm"
 import {ReviewSlider} from "../components/common/ReviewSlider"
 
 export const Contact = () => {

@@ -3,7 +3,7 @@ import { Route,Routes } from "react-router-dom";
 import OpenRoute from "./components/core/Auth/OpenRoute";
 import { Home } from "./pages/Home";
 import {Navbar} from "./components/common/Navbar"
-import { useState } from "react";
+// import { useState } from "react";
 import { useSelector } from "react-redux";
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
@@ -23,11 +23,11 @@ import { ACCOUNT_TYPE } from "./utils/constants";
 import { AddCourse } from "./components/core/Dashboard/AddCourse/index";
 import { MyCourses } from "./components/core/Dashboard/MyCourses";
 import { EditCourse } from "./components/core/Dashboard/EditCourse";
-
+import { Catalog } from "./pages/Catalog";
 
 function App() {
   //when hover on catalog..(become an instructor) is hidden
-  const [hovering, setHovering] = useState(false);
+  // const [hovering, setHovering] = useState(false);
 
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
@@ -36,9 +36,15 @@ function App() {
 
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
-      <Navbar setHovering={setHovering} />
+      <Navbar 
+      // setHovering={setHovering}
+       />
       <Routes>
-        <Route path="/" element={<Home hovering={hovering}/>} />
+        <Route path="/" element={<Home/>} />
+
+        <Route path="catalog/:catalogName" element={<Catalog/>} />
+        
+        {/* <Route path="courses/:courseId" element={<CourseDetails/>} /> */}
         
         <Route
           path="/login"
