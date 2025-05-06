@@ -251,9 +251,7 @@ exports.getFullCourseDetails = async (req, res) => {
 try {
     const { courseId } = req.body
     const userId = req.user.id
-    const courseDetails = await Course.findOne({
-    _id: courseId,
-    })
+    const courseDetails = await Course.findOne({ _id: courseId, })
     .populate({
         path: "instructor",
         populate: {
@@ -270,12 +268,12 @@ try {
     })
     .exec()
 
-    let courseProgressCount = await CourseProgress.findOne({
-    courseID: courseId,
-    userId: userId,
-    })
+    // let courseProgressCount = await CourseProgress.findOne({
+    // courseID: courseId,
+    // userId: userId,
+    // })
 
-    console.log("courseProgressCount : ", courseProgressCount)
+    // console.log("courseProgressCount : ", courseProgressCount)
 
     if (!courseDetails) {
     return res.status(400).json({
@@ -291,24 +289,23 @@ try {
     //   });
     // }
 
-    let totalDurationInSeconds = 0
-    courseDetails.courseContent.forEach((content) => {
-    content.subSection.forEach((subSection) => {
-        const timeDurationInSeconds = parseInt(subSection.timeDuration)
-        totalDurationInSeconds += timeDurationInSeconds
-    })
-    })
+    // let totalDurationInSeconds = 0
+    // courseDetails.courseContent.forEach((content) => {
+    // content.subSection.forEach((subSection) => {
+    //     const timeDurationInSeconds = parseInt(subSection.timeDuration)
+    //     totalDurationInSeconds += timeDurationInSeconds
+    // })
+    // })
 
-    const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+    // const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
 
     return res.status(200).json({
     success: true,
     data: {
         courseDetails,
-        totalDuration,
-        completedVideos: courseProgressCount?.completedVideos
-        ? courseProgressCount?.completedVideos
-        : [],
+        // totalDuration,
+        // completedVideos: courseProgressCount?.completedVideos ? courseProgressCount?.completedVideos
+        // : [],
     },
     })
 } catch (error) {
@@ -357,7 +354,7 @@ try {
     }
 
     // Unenroll students from the course
-    const studentsEnrolled = course.studentsEnroled
+    const studentsEnrolled = course.studentsEnrolled
     for (const studentId of studentsEnrolled) {
     await User.findByIdAndUpdate(studentId, {
         $pull: { courses: courseId },

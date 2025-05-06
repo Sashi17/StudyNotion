@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom"
 
 import { fetchInstructorCourses } from "../../../services/operations/courseDetailsAPI"
 import {IconBtn} from "../../common/IconBtn"
-import CoursesTable from "./InstructorCourses/CoursesTable"
+import {CoursesTable} from "./InstructorCourses/CoursesTable.jsx"
 
-export default function MyCourses() {
+export const MyCourses = () => {
   const { token } = useSelector((state) => state.auth)
   const navigate = useNavigate()
   const [courses, setCourses] = useState([])
@@ -20,7 +20,7 @@ export default function MyCourses() {
       }
     }
     fetchCourses()
-  }, [])
+  },[token])
 
   return (
     <div>

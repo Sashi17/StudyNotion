@@ -268,9 +268,7 @@ export const fetchInstructorCourses = async (token) => {
   const toastId = toast.loading("Loading...")
   try {
     const response = await apiConnector(
-      "GET",
-      GET_ALL_INSTRUCTOR_COURSES_API,
-      null,
+      "GET", GET_ALL_INSTRUCTOR_COURSES_API, null,
       {
         Authorization: `Bearer ${token}`,
       }
@@ -313,21 +311,21 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
   //   dispatch(setLoading(true));
   let result = null
   try {
-    const response = await apiConnector(
-      "POST",
-      GET_FULL_COURSE_DETAILS_AUTHENTICATED,
-      {
-        courseId,
-      },
+    console.log("LOADING 11111111")
+    const response = await apiConnector( "POST", GET_FULL_COURSE_DETAILS_AUTHENTICATED, { courseId, },
       {
         Authorization: `Bearer ${token}`,
       }
     )
+    console.log("LOADING 22222222222222")
+
     console.log("COURSE_FULL_DETAILS_API API RESPONSE............", response)
 
     if (!response.data.success) {
       throw new Error(response.data.message)
     }
+    console.log("LOADING 333333333333333")
+
     result = response?.data?.data
   } catch (error) {
     console.log("COURSE_FULL_DETAILS_API API ERROR............", error)
