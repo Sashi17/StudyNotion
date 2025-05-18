@@ -1,4 +1,3 @@
-import React from 'react'
 import { IconBtn } from './IconBtn'
 
 export const ConfirmationModal = ({ modalData }) => {

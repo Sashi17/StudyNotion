@@ -10,16 +10,10 @@ export const getCatalogPageData = async(categoryId) => {
 
         console.log("PRINTING CATEGORY ID>>>>>>>>: ", categoryId);
 
-        // const config = {
-        //             categoryId: categoryId, // Ensure categoryId is here
-        //     };
-        // console.log("Request Configuration:", config);
-
         const response = await apiConnector("POST", catalogData.CATALOGPAGEDATA_API, 
-            {categoryId: categoryId}
-            // config
-        );
-        console.log("22222222222222")
+            {categoryId: categoryId} );
+            
+        console.log(response)
 
         if(!response?.data?.success)
             throw new Error("Could not Fetch Category page data");

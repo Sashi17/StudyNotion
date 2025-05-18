@@ -9,6 +9,8 @@ exports.resetpwtoken = async(req, res) => {
         //get email from req body
         const email = req.body.email;
 
+console.log("11111111111")
+
         //email validation
         const exists = await User.findOne({email: email}).populate();
         if(!exists){
@@ -17,6 +19,7 @@ exports.resetpwtoken = async(req, res) => {
                 message: "User is not registered",
             });
         }
+console.log("2222222222222222")
 
         //generate token --> crypto is inbuilt
         //A UUID (Universally Unique Identifier) is a 128-bit identifier that is globally unique.
@@ -31,6 +34,8 @@ exports.resetpwtoken = async(req, res) => {
             }, { new: true } );
         console.log("DETAILS", updated);
 
+        console.log("333333333333333")
+
         //create url
         const url = `http://localhost:3000/update-password/${token}` 
 
@@ -38,6 +43,7 @@ exports.resetpwtoken = async(req, res) => {
         await mailSender(email, 
             "Password reset mail", 
             `Your Link for email verification is ${url}. Please click this url to reset your password.` );
+console.log("4444444444444444")
 
         //return response
         res.json({
@@ -57,10 +63,10 @@ exports.resetpwtoken = async(req, res) => {
 exports.resetpw = async (req, res) => {
     try{
         //fetch data
-        const { pw, confirmPw, token } = req.body;
+        const { password, confirmPassword, token } = req.body;
 
         //validation
-        if(pw !== confirmPw){
+        if(password !== confirmPassword){
             res.json({
                 success: false,
                 message: "Password not matching"
@@ -87,12 +93,12 @@ exports.resetpw = async (req, res) => {
         }
 
         //hash pwd
-        const hashpw = await bcrypt.hash(pw, 10);
+        const hashpw = await bcrypt.hash(password, 10);
 
         //pw update
         await User.findOneAndUpdate(
             {token: token},
-            {pw: hashpw},
+            {password: hashpw},
             {new:true}
         )
 

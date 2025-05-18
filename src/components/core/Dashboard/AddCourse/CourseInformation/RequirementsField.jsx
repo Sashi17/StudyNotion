@@ -12,10 +12,12 @@ export default function RequirementsField({ name, label, register, setValue, err
       setRequirementsList(course?.instructions)
     }
     register(name, { required: true, validate: (value) => value.length > 0 })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     setValue(name, requirementsList)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requirementsList])
 
   const handleAddRequirement = () => {

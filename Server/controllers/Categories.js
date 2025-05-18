@@ -60,7 +60,7 @@ exports.categoryPageDetails = async (req, res) => {
     try{
         //get categoryid
         const { categoryId } = req.body
-        // console.log("PRINTING CATEGORY ID1111111111111111: ", categoryId);
+        console.log("PRINTING CATEGORY ID1111111111111111: ", categoryId);
 
         //get all courses for id
         const selectedCategory = await Category.findById(categoryId)
@@ -69,8 +69,11 @@ exports.categoryPageDetails = async (req, res) => {
             match: { status: "Published" },
             populate: "ratingAndReviews",
           }).exec()
-          
+
         console.log("selectedCategory>>>>>>",selectedCategory)
+        
+        // console.log("CATEGORY COURSES >>>", selectedCategory.courses)
+        console.log("CATEGORY COURSE >>>", selectedCategory.courses)
         //validation
         if(!selectedCategory){
             console.log("Category not found.")
@@ -79,6 +82,7 @@ exports.categoryPageDetails = async (req, res) => {
                 message: "Category not found"
             });
         }
+
         // Handle the case when there are no courses
         if (selectedCategory.courses.length === 0) {
             console.log("No courses found for the selected category.")
