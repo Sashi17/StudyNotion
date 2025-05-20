@@ -2,15 +2,10 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Outlet, useParams } from "react-router-dom"
 
-import CourseReviewModal from "../components/core/ViewCourse/CourseReviewModal"
-import VideoDetailsSidebar from "../components/core/ViewCourse/VideoDetailsSidebar"
+import {CourseReviewModal} from "../components/core/ViewCourse/CourseReviewModal"
+import {VideoDetailsSidebar} from "../components/core/ViewCourse/VideoDetailsSidebar"
 import { getFullDetailsOfCourse } from "../services/operations/courseDetailsAPI"
-import {
-  setCompletedLectures,
-  setCourseSectionData,
-  setEntireCourseData,
-  setTotalNoOfLectures,
-} from "../slices/viewCourseSlice"
+import { setCompletedLectures, setEntireCourseData, setCourseSectionData, setTotalNoOfLectures } from "../slices/viewCourseSlice"
 
 export const ViewCourse = () => {
   const { courseId } = useParams()
@@ -24,6 +19,7 @@ export const ViewCourse = () => {
       // console.log("Course Data here... ", courseData.courseDetails)
       dispatch(setCourseSectionData(courseData.courseDetails.courseContent))
       dispatch(setEntireCourseData(courseData.courseDetails))
+      //completedVideos is not present in course model but .. api is set in the same way in server/courses..
       dispatch(setCompletedLectures(courseData.completedVideos))
       let lectures = 0
       courseData?.courseDetails?.courseContent?.forEach((sec) => {

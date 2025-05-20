@@ -247,9 +247,8 @@ exports.changepw = async (req, res) => {
 
         //validate old pw
         const isPasswordMatch = await bcrypt.compare(
-			oldPassword,
-			userDetails.password
-		);
+			oldPassword, userDetails.password );
+            
         if (!isPasswordMatch) {
 			// If old password does not match, return a 401 (Unauthorized) error
 			return res.status(401).json({ 

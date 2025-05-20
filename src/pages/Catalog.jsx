@@ -7,7 +7,8 @@ import { getCatalogPageData } from '../services/operations/pageAndComponentData'
 import { CourseCard } from '../components/core/Catalog/CourseCard';
 import { CourseSlider } from '../components/core/Catalog/CourseSlider';
 import { useSelector } from "react-redux"
-import { Error } from "./Error"
+// import { Error } from "./Error"
+import toast from 'react-hot-toast';
 
 export const Catalog = () => {
 
@@ -18,32 +19,56 @@ export const Catalog = () => {
     const [categoryId, setCategoryId] = useState("");
 
     //Fetch all categories
-    useEffect(()=> {
-        const getCategories = async() => {
-            const res = await apiConnector("GET", categories.CATEGORIES_API);
-            const category_id = 
-            res?.data?.data?.filter((ct) => ct.name.split(" ").join("-").toLowerCase() === catalogName)[0]._id;
-            setCategoryId(category_id);
-        }
-        getCategories();
-    },[catalogName]);
+    // useEffect(()=> {
+    //     const getCategories = async() => {
+    //         const res = await apiConnector("GET", categories.CATEGORIES_API);
+    //         const category_id = res?.data?.data?.filter((ct) => ct.name.split(" ").join("-").toLowerCase() === catalogName)[0]._id;
+    //         setCategoryId(category_id);
+    //     }
+    //     getCategories();
+    // },[catalogName]);
 
+    // useEffect(() => {
+    //     const getCategoryDetails = async() => {
+    //         try{
+    //             const res = await getCatalogPageData(categoryId);
+    //             console.log("PRinting res: ", res);
+    //             setCatalogPageData(res);
+    //         }
+    //         catch(error) {
+    //             console.log(error)
+    //         }
+    //     }
+    //     if(categoryId) {
+    //         getCategoryDetails();
+    //     }
+    // },[categoryId]);
+
+    //using both useEffects under one.... as page renders twice previously
     useEffect(() => {
-        const getCategoryDetails = async() => {
-            try{
-                const res = await getCatalogPageData(categoryId);
-                console.log("PRinting res: ", res);
-                setCatalogPageData(res);
-            }
-            catch(error) {
-                console.log(error)
-            }
+      const fetchData = async () => {
+        try {
+          // Fetch categories and determine categoryId
+          const res = await apiConnector("GET", categories.CATEGORIES_API);
+          const category_id = res?.data?.data?.filter( (ct) => ct.name.split(" ").join("-").toLowerCase() === catalogName)[0]?._id;
+          
+          setCategoryId(category_id); // Update state if needed elsewhere
+
+          // Fetch category details using the resolved category_id
+          if (category_id) {
+            const detailsRes = await getCatalogPageData(category_id);
+            console.log("PRinting res: ", res);
+            setCatalogPageData(detailsRes);
+          }
+        } catch (error) {
+            console.log(error)
         }
-        if(categoryId) {
-            getCategoryDetails();
-        }
-        
-    },[categoryId]);
+      };
+
+      if (catalogName) {
+        fetchData();
+      }
+    }, [catalogName]); // Single dependency
 
 
     if (loading || !catalogPageData) {
@@ -54,7 +79,8 @@ export const Catalog = () => {
         )
       }
       if (!loading && !catalogPageData.success) {
-        return <Error />
+        // toast.success(`No Courses found for the catagory ${catalogName}` )
+        console.log(`No Courses found for the catagory ${catalogName}` )
       }
     
       return (

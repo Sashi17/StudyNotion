@@ -311,21 +311,16 @@ export const getFullDetailsOfCourse = async (courseId, token) => {
   //   dispatch(setLoading(true));
   let result = null
   try {
-    console.log("LOADING 11111111")
     const response = await apiConnector( "POST", GET_FULL_COURSE_DETAILS_AUTHENTICATED, { courseId, },
       {
         Authorization: `Bearer ${token}`,
       }
     )
-    console.log("LOADING 22222222222222")
-
     console.log("COURSE_FULL_DETAILS_API API RESPONSE............", response)
 
     if (!response.data.success) {
       throw new Error(response.data.message)
     }
-    console.log("LOADING 333333333333333")
-
     result = response?.data?.data
   } catch (error) {
     console.log("COURSE_FULL_DETAILS_API API ERROR............", error)

@@ -44,18 +44,17 @@ export const VideoDetails = () => {
         setPreviewSource(courseEntireData.thumbnail)
         setVideoEnded(false)
       }
-    })()
+    })()// eslint-disable-next-line
   }, [courseSectionData, courseEntireData, location.pathname])
 
   // check if the lecture is the first video of the course
   const isFirstVideo = () => {
     const currentSectionIndx = courseSectionData.findIndex(
-      (data) => data._id === sectionId
+       (data) => data._id === sectionId
     )
 
-    const currentSubSectionIndx = courseSectionData[
-      currentSectionIndx
-    ].subSection.findIndex((data) => data._id === subSectionId)
+    const currentSubSectionIndx = courseSectionData[currentSectionIndx].subSection
+        .findIndex((data) => data._id === subSectionId)
 
     if (currentSectionIndx === 0 && currentSubSectionIndx === 0) {
       return true
@@ -144,12 +143,8 @@ export const VideoDetails = () => {
       )
     } else {
       const prevSectionId = courseSectionData[currentSectionIndx - 1]._id
-      const prevSubSectionLength =
-        courseSectionData[currentSectionIndx - 1].subSection.length
-      const prevSubSectionId =
-        courseSectionData[currentSectionIndx - 1].subSection[
-          prevSubSectionLength - 1
-        ]._id
+      const prevSubSectionLength = courseSectionData[currentSectionIndx - 1].subSection.length
+      const prevSubSectionId = courseSectionData[currentSectionIndx - 1].subSection[ prevSubSectionLength - 1]._id
       navigate(
         `/view-course/${courseId}/section/${prevSectionId}/sub-section/${prevSubSectionId}`
       )
@@ -159,8 +154,7 @@ export const VideoDetails = () => {
   const handleLectureCompletion = async () => {
     setLoading(true)
     const res = await markLectureAsComplete(
-      { courseId: courseId, subsectionId: subSectionId },
-      token
+      { courseId: courseId, subsectionId: subSectionId }, token
     )
     if (res) {
       dispatch(updateCompletedLectures(subSectionId))

@@ -133,7 +133,7 @@ export const About = () => {
                 Reviews from other learners
                 </h1>
                 {/* <ReviewSlider /> */}
-                <ReviewSlider />
+                {/* <ReviewSlider /> */}
             </div>
             
             {/* <Footer /> */}

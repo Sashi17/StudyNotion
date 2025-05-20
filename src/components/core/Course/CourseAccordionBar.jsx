@@ -11,10 +11,12 @@ export const CourseAccordionBar = ({ course, isActive, handleActive }) => {
   
   useEffect(() => {
     setActive(isActive?.includes(course._id))
+    // eslint-disable-next-line
   }, [isActive])
   const [sectionHeight, setSectionHeight] = useState(0)
   useEffect(() => {
     setSectionHeight(active ? contentEl.current.scrollHeight : 0)
+    // eslint-disable-next-line
   }, [active])
 
   return (
