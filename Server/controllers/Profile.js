@@ -2,6 +2,10 @@ const Profile = require("../models/Profile")
 const User = require("../models/User")
 const Course = require("../models/Course")
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
+const CourseProgress = require("../models/CourseProgress")
+const mongoose = require("mongoose")
+const { convertSecondsToDuration } = require("../utils/convertSecondsToDuration")
+
 
 exports.updateProfile = async (req, res) => {
     try{
@@ -52,7 +56,7 @@ exports.updateProfile = async (req, res) => {
 exports.deleteAccount = async(req, res) => {
     try{
         //get id
-        console.log("Printing ID: ", req.user.id);
+        // console.log("Printing ID: ", req.user.id);
         const id = req.user.id;
 
         //validate
@@ -164,8 +168,7 @@ exports.getEnrolledCourses = async (req, res) => {
     const userId = req.user.id
     let userDetails = await User.findOne({
       _id: userId,
-    })
-      .populate({
+    }).populate({
         path: "courses",
         populate: {
           path: "courseContent",
@@ -175,35 +178,33 @@ exports.getEnrolledCourses = async (req, res) => {
         },
       })
       .exec()
+
     userDetails = userDetails.toObject()
+    // console.log("USER DETAILS>>>>>>>>>>", userDetails)
     var SubsectionLength = 0
+
     for (var i = 0; i < userDetails.courses.length; i++) {
       let totalDurationInSeconds = 0
       SubsectionLength = 0
       for (var j = 0; j < userDetails.courses[i].courseContent.length; j++) {
-        totalDurationInSeconds += userDetails.courses[i].courseContent[
-          j
-        ].subSection.reduce((acc, curr) => acc + parseInt(curr.timeDuration), 0)
-        userDetails.courses[i].totalDuration = convertSecondsToDuration(
-          totalDurationInSeconds
-        )
-        SubsectionLength +=
-          userDetails.courses[i].courseContent[j].subSection.length
+        
+        totalDurationInSeconds += userDetails.courses[i].courseContent[j].subSection.reduce((acc, curr) => acc + parseInt(curr.timeDuration), 0)
+        
+        userDetails.courses[i].totalDuration = convertSecondsToDuration( totalDurationInSeconds )
+        
+        SubsectionLength += userDetails.courses[i].courseContent[j].subSection.length
       }
-      let courseProgressCount = await CourseProgress.findOne({
-        courseID: userDetails.courses[i]._id,
-        userId: userId,
-      })
+      let courseProgressCount = await CourseProgress.findOne({ courseID: userDetails.courses[i]._id,  userId: userId, })
+
       courseProgressCount = courseProgressCount?.completedVideos.length
+
       if (SubsectionLength === 0) {
         userDetails.courses[i].progressPercentage = 100
       } else {
         // To make it up to 2 decimal point
         const multiplier = Math.pow(10, 2)
         userDetails.courses[i].progressPercentage =
-          Math.round(
-            (courseProgressCount / SubsectionLength) * 100 * multiplier
-          ) / multiplier
+          Math.round( (courseProgressCount / SubsectionLength) * 100 * multiplier) / multiplier
       }
     }
 

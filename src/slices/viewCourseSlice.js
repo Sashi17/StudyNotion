@@ -21,9 +21,14 @@ const viewCourseSlice = createSlice({
       state.totalNoOfLectures = action.payload
     },
     setCompletedLectures: (state, action) => {
-      state.completedLectures = action.payload
+      // Ensure the payload is an array, even if it's a single item or null/undefined
+      state.completedLectures = Array.isArray(action.payload)
+        ? action.payload : (action.payload === null || action.payload === undefined)
+          ? [] // If null/undefined, set to empty array
+          : [action.payload]; // If single item, wrap it in an array
     },
     updateCompletedLectures: (state, action) => {
+      // This reducer should now work correctly as completedLectures is guaranteed to be an array
       state.completedLectures = [...state.completedLectures, action.payload]
     },
   },

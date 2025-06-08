@@ -61,10 +61,10 @@ exports.updateSubSection = async (req, res) => {
         //3) set default as prev i.e. title = pre.title ???
 
         const { sectionId, subSectionId, title, description } = req.body        
-        const subSection = await subSection.findbyId(subSectionId)
+        const subSectiondata = await SubSection.findById(subSectionId)
 
         //data validate --> dont need to validate other attributes
-        if( !subSection ){
+        if( !subSectiondata ){
             return res.json({
                 success: false,
                 message: "Subsection not found"
@@ -73,10 +73,10 @@ exports.updateSubSection = async (req, res) => {
 
         //update data
         if (title !== undefined) {
-            subSection.title = title
+            subSectiondata.title = title
         }
         if (description !== undefined) {
-            subSection.description = description
+            subSectiondata.description = description
         }
         
         //ek hi line me fecthing and validating
@@ -86,10 +86,10 @@ exports.updateSubSection = async (req, res) => {
               video,
               process.env.FOLDER_NAME
             );
-            subSection.videoUrl = uploadDetails.secure_url
-            subSection.timeDuration = `${uploadDetails.duration}`
+            subSectiondata.videoUrl = uploadDetails.secure_url
+            subSectiondata.timeDuration = `${uploadDetails.duration}`
         }
-        await subSection.save()
+        await subSectiondata.save()
 
         // find updated section and return it for front-end interaction
         const updatedSection = await Section.findById(sectionId).populate( "subSection" ) 

@@ -60,7 +60,6 @@ export function SubSectionModal( { modalData, setModalData, add = false, view = 
 
       setLoading(true)
       const result = await updateSubSection(formData, token)
-      console.log("6666666666")
 
       if (result) {
         // update the structure of course
@@ -70,7 +69,6 @@ export function SubSectionModal( { modalData, setModalData, add = false, view = 
         const updatedCourse = { ...course, courseContent: updatedCourseContent }
         dispatch(setCourse(updatedCourse))
       }
-      console.log("677777777777777")
 
       setModalData(null)
       setLoading(false)

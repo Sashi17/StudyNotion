@@ -9,19 +9,17 @@ exports.resetpwtoken = async(req, res) => {
         //get email from req body
         const email = req.body.email;
 
-        //email validation
-        const exists = await User.findOne({email: email}).populate();
+        const exists = await User.findOne({email: email});
         if(!exists){
             res.status(401).json({
                 success: false,
-                message: "User is not registered",
+                message: `This Email: ${email} is not Registered With Us Enter a Valid Email `,
             });
         }
 
         //generate token --> crypto is inbuilt
         //A UUID (Universally Unique Identifier) is a 128-bit identifier that is globally unique.
         // const token = crypto.randomUUID();
-
         const token = crypto.randomBytes(20).toString("hex");
 
         //update user by adding token and expiration time
@@ -29,8 +27,6 @@ exports.resetpwtoken = async(req, res) => {
                 token: token,
                 resetPwExpires: Date.now() + 3600000,
             }, { new: true } );
-
-        // console.log("DETAILS", updated);
 
         //create url
         const url = `http://localhost:3000/update-password/${token}` 

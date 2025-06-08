@@ -138,10 +138,10 @@ export function getPwResetToken(email , setEmailSent) {
   return async(dispatch) => {
     dispatch(setLoading(true));
     try{
-      // console.log("Loading 3")
-      const response = await apiConnector("POST", RESETPASSTOKEN_API, {email,})
-      // console.log("Loading 4")
-      // console.log("RESET PASSWORD TOKEN RESPONSE....", response);
+      console.log("Loading 3")
+      const response = await apiConnector("POST", RESETPASSTOKEN_API, {email})
+      console.log("Loading 4")
+      console.log("RESET PASSWORD TOKEN RESPONSE....", response);
 
       if(!response.data.success) {
         throw new Error(response.data.message);

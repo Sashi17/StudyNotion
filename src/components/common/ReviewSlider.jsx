@@ -23,7 +23,7 @@ export const ReviewSlider = () => {
     ;(async () => {
       const { data } = await apiConnector( "GET", ratingsEndpoints.REVIEWS_DETAILS_API )
       if (data?.success) {
-        setReviews(data?.data)
+        setReviews(data?.allReviews)
       }
     })()
   }, [])
@@ -91,7 +91,7 @@ export const ReviewSlider = () => {
               </SwiperSlide>
             )
           })}
-          {/* <SwiperSlide>Slide 1</SwiperSlide> */}
+          <SwiperSlide>Slide 1</SwiperSlide>
         </Swiper>
       </div>
     </div>

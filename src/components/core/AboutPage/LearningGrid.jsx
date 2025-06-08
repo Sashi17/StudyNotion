@@ -51,8 +51,7 @@ export const LearningGrid = () => {
           {LearningGridArray.map((card, i) => {
             return (
             //   POSITIONING OF THE CARDS
-              <div
-                key={i}
+              <div key={i}
                 className={`${i === 0 && "xl:col-span-2 xl:h-[294px]"}  ${
                   card.order % 2 === 1
                     ? "bg-richblack-700 h-[294px]"

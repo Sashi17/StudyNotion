@@ -10,8 +10,8 @@ import {LearningLanguageSection} from "../components/core/Homepage2/LearningLang
 import { InstructorSection } from '../components/core/Homepage2/InstructorSection'
 import {Footer} from '../components/common/Footer'
 import { ExploreMore } from '../components/core/Homepage2/ExploreMore'
-import { ReviewSlider } from '../components/common/ReviewSlider'
 
+import { ReviewSlider } from '../components/common/ReviewSlider'
 
 export const Home = () => {
   return (
@@ -47,8 +47,9 @@ export const Home = () => {
                 </CTAButton>
             </div>
 
-            <div className='mx-3 my-12  shadow-[20px_20px_white]'>
-                <video muted loop autoPlay>
+            <div className="mx-3 my-7 shadow-[10px_-5px_50px_-5px] shadow-blue-200">
+                <video muted loop autoPlay
+                    className='shadow-[20px_20px_rgba(255,255,255)]'>
                     <source src={Banner} type='video/mp4'/>
                 </video>
             </div>
@@ -58,31 +59,28 @@ export const Home = () => {
                 <CodeBlocks
                     position={"lg:flex-row"}
                     heading={
-                        <div className='text-center font-semibold text-4xl'>
+                        <div className='font-semibold text-4xl'>
                             Unlock your 
-                            <HighlightText text={"coding potential"}/> 
+                            <HighlightText text={"coding potential "}/> 
                             with our online courses.
                         </div>
                     }
-                    subheading={
-                        "Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."
-                    }
-                    ctabtn1={
-                        {
+                    subheading={ "Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you." }
+                    ctabtn1={ {
                             text: "Try it Yourself", 
                             linkto: "/signup",
                             active: true, 
                         }
                     }
-                    ctabtn2={
-                        {
+                    ctabtn2={ {
                             text: "Learn More", 
                             linkto: "/login",
                             active: false, 
                         }
                     }
-                    codeblock={`<!DOCTYPE html>\n<html>\nhead><title>Example</title><linkrel="stylesheet"href="styles.css">\n/head>\nbody>\nh1><ahref="/">Header</a>\n/h1>\nnav><ahref="one/">One</a><ahref="two/">Two</a><ahref="three/">Three</a>\n/nav>\n`}
                     codeColor={"text-yellow-25"}
+                    codeblock={`<!DOCTYPE html>\n <html lang="en">\n<head>\n<title>This is myPage</title>\n</head>\n<body>\n<h1><a href="/">Header</a></h1>\n<nav> <a href="/one">One</a> <a href="/two">Two</a> <a href="/three">Three</a>\n</nav>\n</body>`}
+                    bgGradient={<div className="codeblock1 absolute"></div>}
                 />
             </div>
 
@@ -91,31 +89,26 @@ export const Home = () => {
                 <CodeBlocks
                     position={"lg:flex-row-reverse"}
                     heading={
-                        <div className='text-center font-semibold text-4xl'>
-                            Unlock your 
-                            <HighlightText text={"coding potential"}/> 
-                            with our online courses.
+                        <div className="w-[100%] text-4xl font-semibold lg:w-[50%]">
+                            Start <HighlightText text={"coding in seconds"}/>
                         </div>
                     }
                     subheading={
-                        "Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."
+                        "Go ahead, give it a try. Our hands-on learning environment means you'll be writing real code from your very first lesson."
                     }
-                    ctabtn1={
-                        {
-                            text: "Try it Yourself", 
-                            linkto: "/signup",
-                            active: true, 
-                        }
-                    }
-                    ctabtn2={
-                        {
-                            text: "Learn More", 
-                            linkto: "/login",
+                    ctabtn1={ {
+                            text: "Continue Lesson",
+                            link: "/signup",
+                            active: true,
+                        } }
+                    ctabtn2={ {
+                            text: "Learn More",
+                            link: "/signup",
                             active: false, 
-                        }
-                    }
-                    codeblock={`<!DOCTYPE html>\n<html>\nhead><title>Example</\ntitle><linkrel="stylesheet"href="styles.css">\n/head>\nbody>\nh1><ahref="/">Header</a>\n/h1>\nnav><ahref="one/">One</a><ahref="two/">Two</\na><ahref="three/">Three</a>\n/nav>`}
-                    codeColor={"text-yellow-25"}
+                        } }
+                    codeColor={"text-white"}
+                    codeblock={`import React from "react";\n import CTAButton from "./Button";\nimport TypeAnimation from "react-type";\nimport { FaArrowRight } from "react-icons/fa";\n\nconst Home = () => {\nreturn (\n<div>Home</div>\n)\n}\nexport default Home;`}
+                    bgGradient={<div className="codeblock2 absolute"></div>}
                 />
             </div>
 
@@ -163,7 +156,6 @@ export const Home = () => {
                                 Learn More
                             </div>
                         </CTAButton>
-
                     </div>
                 </div>
                 
@@ -174,18 +166,16 @@ export const Home = () => {
         </div>
         
         {/*SECTION 3*/}
-        <div className='w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-8 
-        bg-richblack-900 text-white '>
+        <div className='relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white'>
             
             <InstructorSection/>
 
-            <h2 className='text-center font-semibold mt-10 text-4xl'>Review from other Learners</h2>
+            <h2 className='text-center text-4xl font-semibold mt-8'>Review from other Learners</h2>
 
             {/* Review slider here */}
-            {/* <ReviewSlider/> */}
+            <ReviewSlider/>
 
         </div>
-
         {/*FOOTER*/}
         <Footer/>
 

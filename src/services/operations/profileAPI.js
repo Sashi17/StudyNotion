@@ -43,6 +43,7 @@ export async function getUserEnrolledCourses(token) {
         Authorization: `Bearer ${token}`,
       }
     )
+
     if (!response.data.success) {
       throw new Error(response.data.message)
     }

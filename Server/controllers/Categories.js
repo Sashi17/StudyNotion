@@ -17,11 +17,8 @@ exports.createCategory = async (req, res) => {
         }
 
         //create entry in db
-        const details = await Category.create({
-            name: name,
-            description: description,
-        });
-        console.log(details);
+        const details = await Category.create({ name: name, description: description, });
+        // console.log(details);
 
         return res.status(200).json({
             success: true,
@@ -90,7 +87,8 @@ exports.categoryPageDetails = async (req, res) => {
         }
 
         //get courses of diff category
-        const categoriesExceptSelected = await Course.find({ _id: {$ne: categoryId}, });
+        const categoriesExceptSelected = await Category.find({ _id: {$ne: categoryId}, });
+        // console.log('categoriesExceptSelected', categoriesExceptSelected)
         let differentCategory = await Category.findOne(
             categoriesExceptSelected[getRandomInt(categoriesExceptSelected.length)]._id )
             .populate({
@@ -98,6 +96,7 @@ exports.categoryPageDetails = async (req, res) => {
               match: { status: "Published" },
             })
             .exec()
+        // console.log("differentCategory>>>>>>>>>>>>>>>>>>>>>>>>>>>", differentCategory)
 
         // HW TODO: get top 10 selling courses
         // const top10 = Course.find({}).sort({studentEnrolled: -1}).limit(10);

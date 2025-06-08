@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import {getPwResetToken} from "../services/operations/authAPI"
+import { BiArrowBack } from "react-icons/bi"
 
 export const ForgotPw = () => {
     //the 2 pages are shown on basis of email sent or not
@@ -17,10 +18,10 @@ export const ForgotPw = () => {
     }
 
     return (
-    <div className='text-white flex items-center justify-center'>
+    <div className='grid min-h-[calc(100vh-3.5rem)] place-items-center'>
         {
             loading ? (
-                <div>Loading ...</div>
+                <div className="spinner"></div>
             ) : (
                 <div className="max-w-[500px] p-4 lg:p-8">
                     <h1 className="text-[1.875rem] font-semibold leading-[2.375rem] text-richblack-5">
@@ -47,21 +48,23 @@ export const ForgotPw = () => {
                                         value={email} 
                                         onChange={(e) => setEmail(e.target.value)}
                                         placeholder='Enter your Email Address'
-                                        className='text-black'/>
+                                        className='form-style w-full'/>
                                 </label>
                             )
                         }
                     </form>
 
-                    <button type='submit' onClick={handleOnSubmit}>
+                    <button type='submit' onClick={handleOnSubmit}
+                        className="mt-6 w-full rounded-[8px] bg-yellow-50 py-[12px] px-[12px] font-medium text-richblack-900">
                         {
                             !emailSent ? ("Reset Password") : ("Resend Email")
                         }
                     </button>
 
-                    <div>
+                    <div className="mt-6 flex items-center justify-between">
                         <Link to="/login">
-                            <p>Back to Login</p>
+                            <p className="flex items-center gap-x-2 text-richblack-5">
+                                <BiArrowBack />Back to Login</p>
                         </Link>
                     </div>
 

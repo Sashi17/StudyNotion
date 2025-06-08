@@ -27,7 +27,7 @@ export const InstructorSection = () => {
                 </p>
 
                 <div className='w-fit'>
-                    <CTAButton active={true} loginto={"/signup"}>
+                    <CTAButton active={true} linkto={"/signup"}>
                         <div className='flex flex-row items-center gap-2'>
                             Start Teaching Today
                             <FaArrowRight/>

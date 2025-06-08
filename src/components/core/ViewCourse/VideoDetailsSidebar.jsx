@@ -20,11 +20,8 @@ export const VideoDetailsSidebar = ({ setReviewModal }) => {
       //For highlighting the current video and section during playing the video
       if (!courseSectionData.length) return
       
-      const currentSectionIndx = courseSectionData.findIndex(
-        (data) => data._id === sectionId
-      )
-      const currentSubSectionIndx = courseSectionData?.[currentSectionIndx]?.subSection
-      .findIndex((data) => data._id === subSectionId)
+      const currentSectionIndx = courseSectionData.findIndex( (data) => data._id === sectionId )
+      const currentSubSectionIndx = courseSectionData?.[currentSectionIndx]?.subSection.findIndex((data) => data._id === subSectionId)
 
       const activeSubSectionId = courseSectionData[currentSectionIndx]?.subSection
         ?.[currentSubSectionIndx]?._id
@@ -34,6 +31,7 @@ export const VideoDetailsSidebar = ({ setReviewModal }) => {
       //set current subsection here
       setVideoBarActive(activeSubSectionId)
     })()
+    // console.log( "completedLectures>>>>>>>>>", completedLectures)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseSectionData, courseEntireData, location.pathname])
 
@@ -72,8 +70,7 @@ export const VideoDetailsSidebar = ({ setReviewModal }) => {
 
         <div className="h-[calc(100vh - 5rem)] overflow-y-auto">
           {courseSectionData.map((section, index) => (
-            <div
-              className="mt-2 cursor-pointer text-sm text-richblack-5"
+            <div className="mt-2 cursor-pointer text-sm text-richblack-5"
               onClick={() => setActiveStatus(section?._id)}
               key={index}
             >
@@ -84,12 +81,9 @@ export const VideoDetailsSidebar = ({ setReviewModal }) => {
                 </div>
                 <div className="flex items-center gap-3">
                   {/* <span className="text-[12px] font-medium">
-                    Lession {section?.subSection.length}
+                    Lesson {section?.subSection.length}
                   </span> */}
-                  <span
-                    className={`${ activeStatus === section?.sectionName
-                        ? "rotate-0" : "rotate-180"} transition-all duration-500`}
-                  >
+                  <span className={`${ activeStatus === section?.sectionName ? "rotate-0" : "rotate-180"} transition-all duration-500`} >
                     <BsChevronDown />
                   </span>
                 </div>
@@ -99,23 +93,18 @@ export const VideoDetailsSidebar = ({ setReviewModal }) => {
               {activeStatus === section?._id && (
                 <div className="transition-[height] duration-500 ease-in-out">
                   {section.subSection.map((topic, i) => (
-                    <div
+                    <div key={i}
                       className={`flex gap-3  px-5 py-2 ${
-                        videoBarActive === topic._id
-                          ? "bg-yellow-200 font-semibold text-richblack-800"
-                          : "hover:bg-richblack-900" } `}
-                      key={i}
+                        videoBarActive === topic._id ? "bg-yellow-200 font-semibold text-richblack-800" : "hover:bg-richblack-900" } `}
                       onClick={() => {
-                        navigate(
-                          `/view-course/${courseEntireData?._id}/section/${section?._id}/sub-section/${topic?._id}`
-                        )
+                        navigate( `/view-course/${courseEntireData?._id}/section/${section?._id}/sub-section/${topic?._id}` )
                         setVideoBarActive(topic._id)
                       }}
                     >
                       <input
                         type="checkbox"
                         //if marked as completed.. checkbox ticked
-                        checked={completedLectures.includes(topic?._id)}
+                        checked={completedLectures?.includes(topic?._id)}
                         onChange={() => {}}
                       />
                       {topic.title}

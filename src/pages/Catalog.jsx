@@ -8,7 +8,7 @@ import { CourseCard } from '../components/core/Catalog/CourseCard';
 import { CourseSlider } from '../components/core/Catalog/CourseSlider';
 import { useSelector } from "react-redux"
 // import { Error } from "./Error"
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 
 export const Catalog = () => {
 
@@ -57,8 +57,9 @@ export const Catalog = () => {
           // Fetch category details using the resolved category_id
           if (category_id) {
             const detailsRes = await getCatalogPageData(category_id);
-            console.log("PRinting res: ", res);
+            // console.log("PRinting res: ", res);
             setCatalogPageData(detailsRes);
+            console.log(" CATALOG PAGE DATA>>>>>>>>>>>", catalogPageData)
           }
         } catch (error) {
             console.log(error)

@@ -32,17 +32,18 @@ export const VideoDetails = () => {
         navigate(`/dashboard/enrolled-courses`)
       } else {
         // console.log("courseSectionData", courseSectionData)
-        const filteredData = courseSectionData.filter(
-          (course) => course._id === sectionId
-        )
+
+        const filteredData = courseSectionData.filter( (course) => course._id === sectionId )
         // console.log("filteredData", filteredData)
-        const filteredVideoData = filteredData?.[0]?.subSection.filter(
-          (data) => data._id === subSectionId
-        )
+
+        const filteredVideoData = filteredData?.[0]?.subSection.filter( (data) => data._id === subSectionId )
         // console.log("filteredVideoData", filteredVideoData)
+
         setVideoData(filteredVideoData[0])
         setPreviewSource(courseEntireData.thumbnail)
         setVideoEnded(false)
+
+        // console.log("VIDEO URL>>>>>", filteredVideoData[0].videoURL)
       }
     })()// eslint-disable-next-line
   }, [courseSectionData, courseEntireData, location.pathname])
@@ -53,48 +54,33 @@ export const VideoDetails = () => {
        (data) => data._id === sectionId
     )
 
-    const currentSubSectionIndx = courseSectionData[currentSectionIndx].subSection
-        .findIndex((data) => data._id === subSectionId)
+    const currentSubSectionIndx = courseSectionData[currentSectionIndx].subSection.findIndex((data) => data._id === subSectionId)
 
-    if (currentSectionIndx === 0 && currentSubSectionIndx === 0) {
-      return true
-    } else {
-      return false
-    }
+    if (currentSectionIndx === 0 && currentSubSectionIndx === 0) return true 
+    else return false
   }
 
   // go to the next video
   const goToNextVideo = () => {
     // console.log(courseSectionData)
 
-    const currentSectionIndx = courseSectionData.findIndex(
-      (data) => data._id === sectionId
-    )
+    const currentSectionIndx = courseSectionData.findIndex( (data) => data._id === sectionId )
 
     const noOfSubsections =
       courseSectionData[currentSectionIndx].subSection.length
 
-    const currentSubSectionIndx = courseSectionData[
-      currentSectionIndx
-    ].subSection.findIndex((data) => data._id === subSectionId)
+    const currentSubSectionIndx = courseSectionData[ currentSectionIndx ].subSection.findIndex((data) => data._id === subSectionId)
 
     // console.log("no of subsections", noOfSubsections)
 
     if (currentSubSectionIndx !== noOfSubsections - 1) {
-      const nextSubSectionId =
-        courseSectionData[currentSectionIndx].subSection[
-          currentSubSectionIndx + 1
-        ]._id
-      navigate(
-        `/view-course/${courseId}/section/${sectionId}/sub-section/${nextSubSectionId}`
-      )
+      const nextSubSectionId = courseSectionData[currentSectionIndx].subSection[currentSubSectionIndx + 1]._id
+      navigate( `/view-course/${courseId}/section/${sectionId}/sub-section/${nextSubSectionId}` )
     } else {
       const nextSectionId = courseSectionData[currentSectionIndx + 1]._id
       const nextSubSectionId =
         courseSectionData[currentSectionIndx + 1].subSection[0]._id
-      navigate(
-        `/view-course/${courseId}/section/${nextSectionId}/sub-section/${nextSubSectionId}`
-      )
+      navigate(`/view-course/${courseId}/section/${nextSectionId}/sub-section/${nextSubSectionId}` )
     }
   }
 
@@ -153,20 +139,15 @@ export const VideoDetails = () => {
 
   const handleLectureCompletion = async () => {
     setLoading(true)
-    const res = await markLectureAsComplete(
-      { courseId: courseId, subsectionId: subSectionId }, token
-    )
-    if (res) {
-      dispatch(updateCompletedLectures(subSectionId))
-    }
+    const res = await markLectureAsComplete({ courseId: courseId, subsectionId: subSectionId }, token )
+    if (res) dispatch(updateCompletedLectures(subSectionId))
     setLoading(false)
   }
 
   return (
     <div className="flex flex-col gap-5 text-white">
       {!videoData ? (
-        <img
-          src={previewSource}
+        <img src={previewSource}
           alt="Preview"
           className="h-full w-full rounded-md object-cover"
         />
@@ -176,19 +157,15 @@ export const VideoDetails = () => {
           aspectRatio="16:9"
           playsInline
           onEnded={() => setVideoEnded(true)}
-          src={videoData?.videoUrl}
+          src={videoData?.videoURL}
         >
           <BigPlayButton position="center" />
           {/* Render When Video Ends */}
           {videoEnded && (
-            <div
-              style={{
-                backgroundImage:
-                  "linear-gradient(to top, rgb(0, 0, 0), rgba(0,0,0,0.7), rgba(0,0,0,0.5), rgba(0,0,0,0.1)",
-              }}
-              className="full absolute inset-0 z-[100] grid h-full place-content-center font-inter"
+            <div className="full absolute inset-0 z-[100] grid h-full place-content-center font-inter"
+              style={{ backgroundImage: "linear-gradient(to top, rgb(0, 0, 0), rgba(0,0,0,0.7), rgba(0,0,0,0.5), rgba(0,0,0,0.1)", }}
             >
-              {!completedLectures.includes(subSectionId) && (
+              {!completedLectures?.includes(subSectionId) && (
                 <IconBtn
                   disabled={loading}
                   onclick={() => handleLectureCompletion()}
@@ -214,9 +191,7 @@ export const VideoDetails = () => {
                     disabled={loading}
                     onClick={goToPrevVideo}
                     className="blackButton"
-                  >
-                    Prev
-                  </button>
+                  > Prev </button>
                 )}
                 {!isLastVideo() && (
                   <button
