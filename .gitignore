@@ -1,16 +1,15 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/server/node_modules
-/node_modules
-/.pnp
+/node_modules/
+/.pnp/
 .pnp.js
 
 # testing
-/coverage
+/coverage/
 
 # production
-/build
+/build/
 
 # misc
 .DS_Store
@@ -28,5 +27,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # Explicitly ignore node_modules and .env within the 'Server' directory
-/Server/node_modules
+/Server/node_modules/
 /Server/.env
