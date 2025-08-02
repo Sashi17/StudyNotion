@@ -21,12 +21,6 @@ require("./config/database").connect();
 require("./config/cloudinary").cloudinaryConnect();
 
 //MIDDLEWARES~
-app.use(express.json());
-
-//what is cookie-parser and why we need that
-//a middleware for Express.js that helps in parsing cookies from the request headers.
-app.use(cookieParser());
-
 //cors is used for connecting backend and frontend hosting servers
 app.use(
 	cors({
@@ -35,6 +29,12 @@ app.use(
 		credentials:true,
 	})
 )
+
+app.use(express.json());
+
+//what is cookie-parser and why we need that
+//a middleware for Express.js that helps in parsing cookies from the request headers.
+app.use(cookieParser());
 
 //stores in the server base
 app.use(fileupload({
