@@ -24,7 +24,7 @@ require("./config/cloudinary").cloudinaryConnect();
 //cors is used for connecting backend and frontend hosting servers
 app.use(
 	cors({
-		origin:['http://localhost:3000', 'https://study-notion-frontend-pwb7ajqo-sashikanta-pattanaiks-projects.vercel.app'],
+		origin:['http://localhost:3000', 'https://study-notion-frontend-mu-flax.vercel.app'],
         //if we want to use the parameters from the url in the front end...
 		credentials:true,
 	})
