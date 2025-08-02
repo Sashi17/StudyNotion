@@ -20,7 +20,7 @@ require("./config/database").connect();
 //cloudinary connection
 require("./config/cloudinary").cloudinaryConnect();
 
-//MIDDLEWARES
+//MIDDLEWARES~
 app.use(express.json());
 
 //what is cookie-parser and why we need that
