@@ -5,7 +5,7 @@ const cloudinary = require("cloudinary").v2
 //Optional height to resize
 //Optional quality (1-100)
 exports.uploadImageToCloudinary = async (file, folder, height, quality) => {
-    /* options object --> used to configure various upload parameters(ht, quality, folder, format, resource-type)
+/* options object --> used to configure various upload parameters(ht, quality, folder, format, resource-type)
 etc when sending the file to Cloudinary */
     const options = {folder};
 

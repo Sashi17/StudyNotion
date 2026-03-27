@@ -39,7 +39,7 @@ exports.sendotp = async (req, res) => {
         //otp unique or not
         let result = await OTP.findOne({otp: otp});
 
-        //if otp exists previously in the db --> geenerate a new one
+        //if otp exists previously in the db --> generate a new one
         while(result){
             otp = otpGenerator.generate(6 , {
                 upperCaseAlphabets: false,

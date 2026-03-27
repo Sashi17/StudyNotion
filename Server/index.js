@@ -29,7 +29,7 @@ app.use(
 		credentials:true,
 	})
 )
-
+//to parse json files
 app.use(express.json());
 
 //what is cookie-parser and why we need that

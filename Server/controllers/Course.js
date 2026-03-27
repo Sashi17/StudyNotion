@@ -2,6 +2,7 @@ const Course = require("../models/Course")
 const Tag = require("../models/Category")
 const User = require("../models/User")
 const Category = require("../models/Category");
+
 const {uploadImageToCloudinary} = require("../utils/imageUploader")
 
 //create course handler function
@@ -191,7 +192,7 @@ exports.editCourse = async (req, res) => {
   
       // If Thumbnail Image is found, update it
       if (req.files) {
-        console.log("thumbnail update")
+        // console.log("thumbnail update")
         const thumbnail = req.files.thumbnailImage
         const thumbnailImage = await uploadImageToCloudinary(
           thumbnail,
